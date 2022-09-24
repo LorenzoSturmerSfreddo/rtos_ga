@@ -1,0 +1,3 @@
+Nossa aplicação é um Controlador de Temperatura dos hambientes em um depósitos de carnes. Neste depósito as temperturas dos ambientes não podem passar de 2°C.
+Estas temperaturas são catalogadas nos LOGs separando os 10 ambientes em dois grupos. Caso a temperatura exceder o aceitável o LOG irá mostrar a hora e a temperatura
+alcançada.
