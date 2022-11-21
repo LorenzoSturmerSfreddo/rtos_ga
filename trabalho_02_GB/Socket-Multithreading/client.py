@@ -24,8 +24,9 @@ client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 conection = client.connect(ADDR)
 client.getsockname
 
-
 # função para envio de mensagem
+
+
 def send(msg):
     message = msg.encode(FORMAT)
     # primeiro, devemos enviar o tamnho da mensagem
@@ -36,23 +37,24 @@ def send(msg):
     client.send(message)
     recvmsg = client.recv(2048).decode(FORMAT)
     print(recvmsg)
-    if msg == TMP_READ and recvmsg[0:3]=='TMP' :
+    if msg == TMP_READ and recvmsg[0:3] == 'TMP':
         recsvmsgfloat = float(recvmsg[4:10])
         ledToTurnOn = LED_GREEN
-        if not recsvmsgfloat<30:
+        if not recsvmsgfloat < 30:
             ledToTurnOn = LED_RED
         send(ledToTurnOn)
         print(f"{ledToTurnOn} will be turned on")
-   
+
 
 # manda mensagem pro server
 processHealth = 1
 while processHealth == 1:
     try:
         send(TMP_READ)
-        time.sleep(3)
+        time.sleep(5)  # aguarda 60s para fazer nova requisição de temperatura
     except:
         print("Temperature request failed")
-        processHealth=0      
+        processHealth = 0
+        send(DISCONNECT_MESSAGE)
 
 send(DISCONNECT_MESSAGE)
